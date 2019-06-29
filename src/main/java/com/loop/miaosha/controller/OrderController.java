@@ -1,0 +1,63 @@
+package com.loop.miaosha.controller;
+
+import com.loop.miaosha.domain.MiaoshaUser;
+import com.loop.miaosha.domain.OrderInfo;
+import com.loop.miaosha.redis.RedisService;
+import com.loop.miaosha.result.CodeMsg;
+import com.loop.miaosha.result.Result;
+import com.loop.miaosha.service.GoodsService;
+import com.loop.miaosha.service.MiaoshaUserService;
+import com.loop.miaosha.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.loop.miaosha.vo.GoodsVo;
+import com.loop.miaosha.vo.OrderDetailVo;
+
+@Controller
+@RequestMapping("/order")
+public class OrderController {
+
+	@Autowired
+    MiaoshaUserService userService;
+	
+	@Autowired
+    RedisService redisService;
+	
+	@Autowired
+    OrderService orderService;
+	
+	@Autowired
+    GoodsService goodsService;
+
+	/**
+	 * 秒杀成功的订单详情页
+	 * @param model
+	 * @param user
+	 * @param orderId
+	 * @return
+	 */
+    @RequestMapping("/detail")
+    @ResponseBody
+    public Result<OrderDetailVo> info(Model model, MiaoshaUser user,
+                                      @RequestParam("orderId") long orderId) {
+    	if(user == null) {
+    		return Result.error(CodeMsg.SESSION_ERROR);
+    	}
+    	OrderInfo order = orderService.getOrderById(orderId);
+    	if(order == null) {
+    		return Result.error(CodeMsg.ORDER_NOT_EXIST);
+    	}
+    	long goodsId = order.getGoodsId();
+    	GoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
+    	OrderDetailVo vo = new OrderDetailVo();
+    	vo.setOrder(order);
+    	vo.setGoods(goods);
+    	return Result.success(vo);
+    }
+    
+}

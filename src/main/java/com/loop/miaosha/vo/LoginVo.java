@@ -1,0 +1,34 @@
+package com.loop.miaosha.vo;
+
+import javax.validation.constraints.NotNull;
+
+import com.loop.miaosha.validator.IsMobile;
+import org.hibernate.validator.constraints.Length;
+
+public class LoginVo {
+	
+	@NotNull
+	@IsMobile
+	private String mobile;//账号
+	
+	@NotNull
+	@Length(min=32)
+	private String password;//密码
+	
+	public String getMobile() {
+		return mobile;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	@Override
+	public String toString() {
+		return "LoginVo [mobile=" + mobile + ", password=" + password + "]";
+	}
+}
