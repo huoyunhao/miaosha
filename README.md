@@ -55,7 +55,8 @@ SpringBoot／ RabbitMQ ／Redis／ MySQL , 基于时下最火热的Java微服务
 #### 登录注册流程
 ![登录，双重md5加密](https://upload-images.jianshu.io/upload_images/4157022-64d856cce86c7157.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 #### 接口限流流程
-![接口限流流程](https://upload-images.jianshu.io/upload_images/4157022-c0c3cf57e4b3fd19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![接口限流流程](https://upload-images.jianshu.io/upload_images/4157022-8496541d506f0998.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 
 #### 前端流程
 - 点击商品详情，访问商品详情接口。该接口返回商品是否开启秒杀，没有开启则返回秒杀时间。
